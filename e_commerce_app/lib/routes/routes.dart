@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
+import 'package:e_commerce_app/onboarding/onboarding_screen.dart';
 import 'package:e_commerce_app/views/pages/auth_pages/auth_page.dart';
 import 'package:e_commerce_app/views/pages/bottom_navigation_pages/edit_profile.dart';
 import 'package:e_commerce_app/views/pages/bottom_navigation_pages/mainscreen.dart';
@@ -20,7 +21,7 @@ class RouteClass {
   static String profilePage = '/profile-page';
 
   static String getMainRoute() => mainPage;
-  static String getAuthRoute() => authPage;
+  static String getAuthRoute() => mainPage;
   static String getLoginRoute() => loginPage;
   static String getRegisterRoute() => registerPage;
   static String getLoginOrRegisterRoute() => loginOrRegisterPage;
@@ -39,7 +40,7 @@ class RouteClass {
     ),
     GetPage(
       name: mainPage,
-      page: () => MainScreen(),
+      page: () => OnboardingScreen(),
     ),
     GetPage(
       name: registerPage,

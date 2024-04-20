@@ -168,40 +168,46 @@ class _AdminScreenState extends State<AdminScreen> {
               },
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.32,
             ),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text("Logout"),
               onTap: () {
                 showDialog(
-                  context: context, builder: (context) {
-                  return AlertDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
                       title: const Text('Are you sure you want to sign out ?'),
                       actions: [
                         TextButton(
                           onPressed: () {
                             context.read<AuthBloc>().add(LogoutEvent());
                           },
-                          child: const Text('Yes',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                          ),),
+                          child: const Text(
+                            'Yes',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                            ),
+                          ),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: const Text('No',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                          ),),
+                          child: const Text(
+                            'No',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 25,
+                            ),
+                          ),
                         ),
                       ],
                     );
-                },);
+                  },
+                );
               },
             ),
           ],
@@ -214,7 +220,7 @@ class _AdminScreenState extends State<AdminScreen> {
   Widget adminBody(BuildContext context, String selectedPage, User user) {
     if (selectedPage == 'dashboard') {
       return Padding(
-        padding: const EdgeInsets.only(top: 50, right: 20, left: 20),
+        padding: const EdgeInsets.only(top: 30, right: 10, left: 10),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -415,7 +421,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            '\$ 54,3290',
+                                            '\$ 54,320',
                                             style: TextStyle(
                                               color: Colors.blueAccent,
                                               fontWeight: FontWeight.bold,
@@ -578,7 +584,7 @@ class _AdminScreenState extends State<AdminScreen> {
       );
     } else if (selectedPage == 'AllProducts') {
       return Padding(
-        padding: EdgeInsets.only(top: 50, right: 20, left: 20),
+        padding: EdgeInsets.only(top: 30, right: 10, left: 10),
         child: SingleChildScrollView(
           child: Material(
             elevation: 5,
@@ -611,17 +617,38 @@ class _AdminScreenState extends State<AdminScreen> {
                       ],
                     ),
                   ),
-                  const Divider(),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                        child: Material(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide.none,
+                              borderRadius: BorderRadius.circular(17)),
+                          child: TextFormField(
+                            onTap: () {
+                              // pageController.jumpToPage(3);
+                            },
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              hintText: 'Search...',
+                              hintStyle: const TextStyle(
+                                  fontSize: 17, color: Colors.black),
+                              suffixIcon: const Icon(
+                                Icons.search,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                              fillColor: Colors.white60.withOpacity(0.08),
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(17),
+                                borderSide: BorderSide.none,
+                              ),
                             ),
-                            labelText: 'Search',
-                            prefixIcon: const Icon(Icons.search),
                           ),
                         ),
                       ),
@@ -658,7 +685,9 @@ class _AdminScreenState extends State<AdminScreen> {
                                             .collection('products')
                                             .doc(selectedProduct!.id)
                                             .delete();
-                                        context.read<UserBloc>().add(LoadAllProductsEvent());
+                                        context
+                                            .read<UserBloc>()
+                                            .add(LoadAllProductsEvent());
                                         Navigator.pop(context);
                                       },
                                       child: const Text(
@@ -688,7 +717,9 @@ class _AdminScreenState extends State<AdminScreen> {
                       ),
                     ],
                   ),
-                  const Divider(),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.8,
                     child: BlocBuilder<UserBloc, UserState>(
@@ -698,8 +729,9 @@ class _AdminScreenState extends State<AdminScreen> {
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 8.0,
-                              mainAxisSpacing: 8.0,
+                              crossAxisSpacing: 2.0,
+                              mainAxisSpacing: 2.0,
+                              mainAxisExtent: 160,
                             ),
                             itemCount: state.products.length,
                             itemBuilder: (context, index) {
@@ -712,9 +744,7 @@ class _AdminScreenState extends State<AdminScreen> {
                                     ? Matrix4.identity()
                                     : Matrix4.diagonal3Values(0.9, 0.9, 1.0),
                                 child: GestureDetector(
-                                  onTap: () {
-                                    
-                                  },
+                                  onTap: () {},
                                   child: Material(
                                     elevation: 5,
                                     borderRadius: BorderRadius.circular(10),
@@ -742,9 +772,10 @@ class _AdminScreenState extends State<AdminScreen> {
                                                   setSelected(index, product);
                                                 },
                                                 icon: isSelected == index
-                                                    ? const Icon(Icons.done,
-                                                    color: Colors.white,
-                                                    )
+                                                    ? const Icon(
+                                                        Icons.done,
+                                                        color: Colors.white,
+                                                      )
                                                     : const Icon(
                                                         Icons.circle_outlined,
                                                         color: Colors.white,

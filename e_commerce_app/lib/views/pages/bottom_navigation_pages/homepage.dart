@@ -2,6 +2,7 @@ import 'package:e_commerce_app/auth/bloc/auth_bloc.dart';
 import 'package:e_commerce_app/auth/repositories/auth_repo.dart';
 import 'package:e_commerce_app/product/screens/card.dart';
 import 'package:e_commerce_app/product/screens/search_screen.dart';
+import 'package:e_commerce_app/views/components/bottom_navigation/Search.dart';
 import 'package:e_commerce_app/views/pages/all_products_screen.dart';
 import 'package:e_commerce_app/views/pages/util/catagory_builder.dart';
 import 'package:e_commerce_app/views/shared/fonts/google_font.dart';
@@ -74,32 +75,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 20.h,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SearchScreen()));
-                },
-                child: Container(
-                  height: 50,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300]?.withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: const Row(children: [
-                    Icon(
-                      Icons.search,
-                      size: 40,
-                      color: Colors.grey,
-                    ),
-                    SizedBox(width: 5),
-                    Text(
-                      "Search here",
-                      style: TextStyle(color: Colors.grey, fontSize: 18),
-                    )
-                  ]),
-                ),
-              ),
+              const FirstSearchBar(),
               SizedBox(
                 height: 20.h,
               ),
